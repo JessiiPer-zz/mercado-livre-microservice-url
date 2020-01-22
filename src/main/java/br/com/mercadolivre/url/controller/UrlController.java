@@ -50,9 +50,9 @@ public class UrlController {
 		return ResponseEntity.ok(shortenedUrl);
 	}
 	
-	@DeleteMapping(value = "/shortener")
-	public ResponseEntity<?> deleteUrlShortner() {
-		
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> deleteUrlShortner(@PathVariable String id) throws Exception {
+		urlService.shortnerUrlDelete(id);
 		return ResponseEntity.noContent().build();
 		
 	}

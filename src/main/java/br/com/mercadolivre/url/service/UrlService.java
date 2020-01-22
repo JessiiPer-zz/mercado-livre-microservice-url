@@ -39,4 +39,10 @@ public class UrlService {
         String formatString = sb.substring(0,4) + "://" + sb.substring(5,sb.length()) + "/";
         return formatString;
     }
+	
+	public void shortnerUrlDelete(String uniqueID) throws Exception {
+		Long dictionaryKey = IDConverter.INSTANCE.getDictionaryKeyFromUniqueID(uniqueID);
+		urlRepository.deleteUrl(dictionaryKey);
+		
+	}
 }
