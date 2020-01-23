@@ -18,7 +18,7 @@ public class ResourceExceptionHandler{
 		String error = "Invalid Url";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(status.value(),error, e.getMessage(), request.getRequestURI());
-		return ResponseEntity.status(status).body(err);
+		return ResponseEntity.status(status).body(err); 
 	}
 
 	@ExceptionHandler(ResourceNotFoundException.class)

@@ -3,6 +3,8 @@ package br.com.mercadolivre.url.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.com.mercadolivre.url.service.exception.InvalidUrlException;
+
 public class UrlValidator {
 	
 	public static final UrlValidator INSTANCE = new UrlValidator();
@@ -15,6 +17,9 @@ public class UrlValidator {
 
     public boolean validateURL(String url) {
         Matcher m = URL_PATTERN.matcher(url);
+        if (!m.matches()) {
+        	throw new InvalidUrlException("Please enter a valid URL");
+        }
         return m.matches();
     }
 }

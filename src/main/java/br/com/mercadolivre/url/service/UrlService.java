@@ -5,14 +5,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.mercadolivre.url.commons.IDConverter;
 import br.com.mercadolivre.url.repository.UrlRepository;
+import br.com.mercadolivre.url.service.exception.ResourceNotFoundException;
 
 @Service
 public class UrlService {
+	
 	private final UrlRepository urlRepository;
 
 	@Autowired
     public UrlService(UrlRepository urlRepository) {
-        this.urlRepository = urlRepository;
+        this.urlRepository = urlRepository; 
     }
 
 	public String shortenURL(String localURL, String longUrl) {
@@ -24,10 +26,13 @@ public class UrlService {
 		return shortenedURL;
 	}
 
-	public String getLongURLFromID(String uniqueID) throws Exception {
+	public String getLongURLFromID(String uniqueID) throws Exception{
 		Long dictionaryKey = IDConverter.INSTANCE.getDictionaryKeyFromUniqueID(uniqueID);
-		String longUrl = urlRepository.getUrl(dictionaryKey);
-		return longUrl;
+		String longUrl;
+		longUrl = urlRepository.getUrl(dictionaryKey);
+		if (longUrl == null) {
+			throw new ResourceNotFoundException("URL at key " + dictionaryKey + " was not found");
+		}else return longUrl;
 	}
 
 	private String formatLocalURLFromShortener(String localURL) {
@@ -40,9 +45,8 @@ public class UrlService {
         return formatString;
     }
 	
-	public void shortnerUrlDelete(String uniqueID) throws Exception {
+	public void shortnerUrlDelete(String uniqueID) throws Exception{
 		Long dictionaryKey = IDConverter.INSTANCE.getDictionaryKeyFromUniqueID(uniqueID);
 		urlRepository.deleteUrl(dictionaryKey);
-		
 	}
 }

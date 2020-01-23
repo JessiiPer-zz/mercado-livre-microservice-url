@@ -1,9 +1,8 @@
 package br.com.mercadolivre.url.repository;
 
-import redis.clients.jedis.Jedis;
 import org.springframework.stereotype.Repository;
 
-import br.com.mercadolivre.url.service.exception.ResourceNotFoundException;
+import redis.clients.jedis.Jedis;
 
 @Repository
 public class UrlRepository {
@@ -33,15 +32,13 @@ public class UrlRepository {
 		jedis.hset(urlKey, key, longUrl);
 	}
 
-	public String getUrl(Long id) throws Exception {
+	public String getUrl(Long id) {
 		String url = jedis.hget(urlKey, "url:" + id);
-		if (url == null) {
-			throw new ResourceNotFoundException("URL at key " + id + " was not found");
-		}
+		
 		return url;
 	}
 	
-	public void deleteUrl(Long id) throws Exception {
+	public void deleteUrl(Long id) throws Exception{
         jedis.hdel(urlKey, "url:"+id);
         
 	}
