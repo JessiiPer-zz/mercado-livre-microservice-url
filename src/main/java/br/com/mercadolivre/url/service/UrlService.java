@@ -1,17 +1,19 @@
 package br.com.mercadolivre.url.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import br.com.mercadolivre.url.commons.IDConverter;
+import br.com.mercadolivre.url.controller.UrlController;
 import br.com.mercadolivre.url.repository.UrlRepository;
 import br.com.mercadolivre.url.service.exception.ResourceNotFoundException;
 
 @Service
 public class UrlService {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(UrlController.class);
 	
 	private final UrlRepository urlRepository;
 
@@ -21,19 +23,30 @@ public class UrlService {
     }
 
 	public String shortenURL(String localURL, String longUrl) {
+		LOG.info("Incrementing ID to the repository...");
 		Long id = urlRepository.incrementID();
+		LOG.info("Incremented ID: " + id);
+		LOG.info("Creating Unique ID...");
 		String uniqueID = IDConverter.INSTANCE.createUniqueID(id);
+		LOG.info("ID Unique Created: " + uniqueID);
+		LOG.info("Saving URL to the repository...");
 		urlRepository.saveUrl("url:" + id, longUrl);
+		LOG.info("Url saved - " + longUrl);
 		String baseString = formatLocalURLFromShortener(localURL);
 		String shortenedURL = baseString + uniqueID;
+		LOG.info("Shortened URL: " + shortenedURL);
 		return shortenedURL;
 	}
 
 	public String getLongURLFromID(String uniqueID) throws Exception{
+		LOG.info("Getting dictionary key from Unique ID: " + uniqueID);
 		Long dictionaryKey = IDConverter.INSTANCE.getDictionaryKeyFromUniqueID(uniqueID);
 		String longUrl;
+		LOG.info("Getting long URL to the repository...");
 		longUrl = urlRepository.getUrl(dictionaryKey);
+		LOG.info("Get Long URL successfully!: " + longUrl);
 		if (longUrl == null) {
+			LOG.error("URL at key " + dictionaryKey + " was not found");
 			throw new ResourceNotFoundException("URL at key " + dictionaryKey + " was not found");
 		}else return longUrl;
 	}
@@ -50,6 +63,8 @@ public class UrlService {
 	
 	public void shortnerUrlDelete(String uniqueID) throws Exception{
 		Long dictionaryKey = IDConverter.INSTANCE.getDictionaryKeyFromUniqueID(uniqueID);
+		LOG.info("Get dictionary key" + dictionaryKey);
 		urlRepository.deleteUrl(dictionaryKey);
+		LOG.info("Shortner URL deleted successfully!");
 	}
 }
