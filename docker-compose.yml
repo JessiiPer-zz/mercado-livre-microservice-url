@@ -1,0 +1,88 @@
+version: '2'
+
+# Define services
+services:
+  # App backend service
+  url-shortener:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: '' # Use an image built from the specified dockerfile in the `crud-mysql-client` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: always
+    depends_on: 
+      - eureka # This service depends on eureka. Start that first.
+      - redis # This service depends on redis. Start that first.
+      - config-server # This service depends on config server. Start that first.
+    environment: # Pass environment variables to the service
+        SERVER_PORT: 8080
+        SPRING_APPLICATION_NAME: url
+        SPRING_REDIS_HOST: redis
+        SPRING_REDIS_PORT: 6379
+        SPRING_APPLICATION_PROFILES_ACTIVE: defaultZone
+        SPRING_APPLICATION_CLOUD_CONFIG_URI: config-server:8888
+        EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+        EUREKA_CLIENT_FETCH_REGISTRY: "true"
+        EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: eureka:8761/eureka
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      backend:
+        aliases:
+          - url-shortener
+      database:
+        aliases:
+          - url-shortener
+
+  # Config Server
+  config-server:
+    image: springcloud/configserver
+    ports:
+      - "8888:8888"
+    restart: always
+    #environment: # Pass environment variables to the service
+      #EUREKA_SERVICE_URL: eureka:8761
+    networks:
+      backend:
+        aliases:
+          - config-server
+
+  # Eureka Server (Eureka)
+  eureka:
+    image: springcloud/eureka
+    ports:
+      - "8761:8761"
+    restart: always
+    depends_on:
+      - config-server # This service depends on config server. Start that first.
+    #environment: # Pass environment variables to the service
+     # CONFIG_SERVER_URL: config-server:8888
+    networks:
+      backend:
+        aliases:
+          - eureka
+
+  # Database Service (Redis)
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - db-data:/data
+    networks:
+      database:
+        aliases:
+          - redis
+
+# Volumes
+volumes:
+  db-data:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    #name: backend
+    driver: bridge
+  database:
+    #name: database
+    driver: bridge
