@@ -1,0 +1,242 @@
+{
+	"id": "df34382a-7440-c554-e815-1ea9a5c92999",
+	"name": "mercado-livre",
+	"description": "",
+	"order": [
+		"56cf5241-30fc-9727-1ad4-d48e09241d4e",
+		"9550ab55-a06c-f3f2-ac96-b4cf466080f0",
+		"eff77ac1-bb7a-2271-7c65-95f582e8b19a",
+		"6a4b81ea-095b-ff52-c6d9-4a3500d67dcd",
+		"f0ef813e-7e92-3cda-0bc8-5ccd28597a7e",
+		"7eb17990-81d5-6e07-302d-9115d7a76f18",
+		"2b62e5c4-1b0a-973d-082c-3c74c2eac37c"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1579638855443,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "2b62e5c4-1b0a-973d-082c-3c74c2eac37c",
+			"headers": "Authorization: Bearer19720c8e-1a88-44a6-a5ee-19c787f747ad\n",
+			"headerData": [
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer19720c8e-1a88-44a6-a5ee-19c787f747ad",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8088/user",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"data": null,
+			"dataMode": "params",
+			"name": "getUserAuthenticated",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1580149023188,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "56cf5241-30fc-9727-1ad4-d48e09241d4e",
+			"headers": "Content-Type: application/json\nAuthorization: Bearer3b469cdd-91fe-4b18-a0d9-b4e814aaf86a\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Bearer3b469cdd-91fe-4b18-a0d9-b4e814aaf86a",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:5555/url/shortener",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1580154331985,
+			"name": "PostUrl",
+			"description": "",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"responses": [],
+			"rawModeData": " {\n        \"url\": \"https://www.facebook.com.br/\"\n   }"
+		},
+		{
+			"id": "6a4b81ea-095b-ff52-c6d9-4a3500d67dcd",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8761/eureka/apps",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1579904093706,
+			"name": "EUREKA-SERVER",
+			"description": "",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"responses": []
+		},
+		{
+			"id": "7eb17990-81d5-6e07-302d-9115d7a76f18",
+			"headers": "Content-Type: application/x-www-form-urlencoded\nAuthorization: Basic dXJsOnVybHB3ZA==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic dXJsOnVybHB3ZA==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8088/oauth/token",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"data": [
+				{
+					"key": "scope",
+					"value": "web",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "grant_type",
+					"value": "password",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "Jessica",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "jessicapwd",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "ACCESS_TOKEN",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1580148959563,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "9550ab55-a06c-f3f2-ac96-b4cf466080f0",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/k",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1579731786996,
+			"name": "deleteUrlShortner",
+			"description": "",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"responses": []
+		},
+		{
+			"id": "eff77ac1-bb7a-2271-7c65-95f582e8b19a",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/8",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1579874208478,
+			"name": "getUrl",
+			"description": "",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"responses": []
+		},
+		{
+			"id": "f0ef813e-7e92-3cda-0bc8-5ccd28597a7e",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8888/url/default",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1579894527070,
+			"name": "CONFIG-SERVER",
+			"description": "",
+			"collectionId": "df34382a-7440-c554-e815-1ea9a5c92999",
+			"responses": []
+		}
+	]
+}
